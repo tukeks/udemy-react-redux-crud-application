@@ -17,6 +17,11 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({value: state.count.value})
+const mapStateToProps = state => ({value: state.count.value});
+
+const mapDispatchToProps = dispatch => ({
+  increment: () => dispatch(increment()),
+  decrement: () => dispatch(decrement())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
