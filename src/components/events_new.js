@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-import { postEvents } from '../actions';
+import { postEvent } from '../actions';
 
 class EventsNew extends React.Component {
 
@@ -24,14 +24,13 @@ class EventsNew extends React.Component {
   }
 
   async onSubmit(values){
-    await this.props.postEvents(values);
+    await this.props.postEvent(values);
     this.props.history.push('/');
   }
 
 
   render() {
-    const {handleSubmit, pristine, submitting } = this.props;
-    console.log(submitting);
+    const {handleSubmit, pristine, submitting, invalid } = this.props;
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}> 
@@ -41,7 +40,7 @@ class EventsNew extends React.Component {
         </div>
         
         <div>
-          <input type="submit" value="Submit" disabled={pristine || submitting} />
+          <input type="submit" value="Submit" disabled={pristine || submitting || invalid} />
           <Link to="/">Cancel</Link>
         </div>
       </form>
@@ -50,7 +49,7 @@ class EventsNew extends React.Component {
   }
 }
 
- const mapDispatchToProps = ({ postEvents })
+const mapDispatchToProps = ({ postEvent: postEvent })
 const validate = values => {
 
   const errors = {}
